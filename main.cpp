@@ -10,7 +10,6 @@ class forward_list
 
 public:
     using value_type = T;
-    using allocator_type = Allocator;
     using size_type = std::size_t;
     using difference_type = std::ptrdiff_t;
     using reference = value_type&;
@@ -27,17 +26,17 @@ public:
         explicit Node(T value) : m_value(value) {};
     };
 
-    class iterator
+    class _iterator
     {
     public:
         Node* m_current = nullptr;
-        iterator() = default;
-        explicit iterator(Node* current) : m_current(current){};
+        _iterator() = default;
+        explicit _iterator(Node* current) : m_current(current){};
 
         value_type operator*();
-        iterator& operator=(const iterator& that);
+        iterator& operator=(const _iterator& that);
         iterator& operator++();
-        bool operator!=(const iterator& oper2);
+        bool operator!=(const _iterator& oper2);
     };
 
     Node* m_head = nullptr;
@@ -103,14 +102,14 @@ typename forward_list<T>::iterator forward_list<T>::begin()
 //------------------------------------------------------------
 
 template<class T>
-T forward_list<T>::iterator::operator*()
+T forward_list<T>::_iterator::operator*()
 {
     return m_current->m_value;
 }
 
 template<class T>
 typename forward_list<T>::iterator&
-forward_list<T>::iterator::operator=(const forward_list<T>::iterator& that)
+forward_list<T>::_iterator::operator=(const forward_list<T>::_iterator& that)
 {
     this->m_current = that->m_current;
     return *this;
@@ -118,14 +117,14 @@ forward_list<T>::iterator::operator=(const forward_list<T>::iterator& that)
 
 template<class T>
 typename forward_list<T>::iterator&
-forward_list<T>::iterator::operator++()
+forward_list<T>::_iterator::operator++()
 {
     m_current = m_current->m_next;
     return *this;
 }
 
 template<class T>
-bool forward_list<T>::iterator::operator!=(const forward_list<T>::iterator& oper2)
+bool forward_list<T>::_iterator::operator!=(const forward_list<T>::_iterator& oper2)
 {
     return m_current != oper2.m_current;
 }
@@ -144,6 +143,9 @@ forward_list<T>::end()
 
 int main()
 {
-    std::cout << "aaaa"<<std::endl;
+    stu::forward_list<int> arr;
+    arr.push_back(3);
+    arr.push_back(4);
+    arr.printforward_list();
     return 0;
 }
